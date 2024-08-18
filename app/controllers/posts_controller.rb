@@ -3,7 +3,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    if user_signed_in?
+      @posts = Post.visible_to(current_user)
+    else
+      @posts = Post.all
+    end
+
   end
 
   def show

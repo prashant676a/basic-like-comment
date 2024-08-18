@@ -8,4 +8,24 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   has_many :comments, dependent: :destroy
+
+
+  has_many :friend_requests_as_requestor, foreign_key: :requestor_id,\
+    class_name: :FriendRequest
+  
+  has_many :friend_requests_as_receiver, foreign_key: :receiver_id, \
+    class_name: :FriendRequest
+  
+  def friends
+    # when you're requestor look for receiver
+    friend_requests_as_requestor.where(status: "accepted").map(&:receiver) +
+    friend_requests_as_receiver.where(status: "accepted").map(&:requestor)
+  end
+
+  def suggested_users
+    User.where.not(id: id) # Exclude current user
+      # .where.not(id: friends.pluck(:id)) # Exclude friends
+      .where.not(id: friend_requests_as_requestor.pluck(:receiver_id)) # Exclude users whom the current user has sent friend requests to
+      .where.not(id: friend_requests_as_receiver.pluck(:requestor_id)) # Exclude users who have sent friend requests to the current user
+  end
 end

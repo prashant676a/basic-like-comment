@@ -29,19 +29,32 @@
   </div>
 
   <!-- Navigation Links -->
-  <div class="flex justify-end p-4 bg-white shadow-md">
+<div class="flex justify-between items-center p-4 bg-white shadow-md">
   <% if user_signed_in? %>
-    <div class="flex items-center space-x-4">
-      <%= link_to 'Profile', profile_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
-      <%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+    
+    <div class="flex space-x-4">
+      <%= link_to 'Home', root_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
     </div>
+
+    <div class="flex space-x-6">
+      <%= link_to 'Show Friends', show_friends_friend_requests_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+      <%= link_to 'People You May Know', suggestions_friend_requests_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+      <%= link_to 'Friend Requests', friend_requests_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+      <%= link_to 'Profile', profile_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+    </div>
+
+    <div class="flex space-x-4">
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-semibold" %>
+    </div>
+
   <% else %>
-    <div class="flex items-center space-x-4">
+    <div class="flex space-x-4">
       <%= link_to 'Sign up', new_user_registration_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
       <%= link_to 'Login', new_user_session_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
     </div>
   <% end %>
 </div>
+
 
 
 

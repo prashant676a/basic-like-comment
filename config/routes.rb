@@ -20,5 +20,12 @@ Rails.application.routes.draw do
     resources :likes, only: [ :create, :destroy ]
     resources :comments
   end
-end
 
+  resources :friend_requests, only: [:create, :destroy, :index, :update] do
+    collection do
+      get :show_friends
+      get :suggestions
+    end
+  end
+
+end

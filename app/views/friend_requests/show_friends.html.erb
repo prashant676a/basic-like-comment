@@ -1,0 +1,12 @@
+<% if @friends.any? %>
+  <h2 class="text-xl font-bold mb-4">My Friends</h2>
+  <ul class="list-disc list-inside">
+    <% @friends.each do |friend| %>
+      <li class="mb-2">
+        <%= friend.name %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="text-gray-500">You have no friends yet.</p>
+<% end %>
