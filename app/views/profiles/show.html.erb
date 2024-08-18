@@ -1,0 +1,14 @@
+<h1 class="text-3xl font-bold mb-4">Profile</h1>
+
+<div class="bg-white p-6 border border-gray-200 rounded-lg shadow-lg">
+  <% if @user.profile_picture.attached? %>
+    <%= image_tag @user.profile_picture, class: "w-32 h-32 rounded-full" %>
+  <% else %>
+    <p class="text-gray-500">No profile picture</p>
+  <% end %>
+
+  <p class="text-xl font-medium">Name: <%= @user.name %></p>
+  <p class="text-xl font-medium">Email: <%= @user.email %></p>
+
+  <%= link_to 'Edit Profile', edit_user_registration_path, class: "text-indigo-600 hover:text-indigo-800" %>
+</div>

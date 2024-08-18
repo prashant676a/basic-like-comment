@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Like Test" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-100 text-gray-900 font-sans">
+
+  <!-- Flash Messages -->
+  <div id="flash" class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md z-50">
+    <% flash.each do |key, value| %>
+      <div class="flash <%= key %> p-4 mb-4 rounded-lg text-white <%= value %>">
+        <%= value %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="flex justify-end p-4 bg-white shadow-md">
+  <% if user_signed_in? %>
+    <div class="flex items-center space-x-4">
+      <%= link_to 'Profile', profile_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+    </div>
+  <% else %>
+    <div class="flex items-center space-x-4">
+      <%= link_to 'Sign up', new_user_registration_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+      <%= link_to 'Login', new_user_session_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+    </div>
+  <% end %>
+</div>
+
+
+
+  <!-- Main Content -->
+  <div class="container mx-auto p-4">
+    <%= yield %>
+  </div>
+
+</body>
+
+
+</html>

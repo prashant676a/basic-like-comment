@@ -1,0 +1,14 @@
+<!-- app/views/comments/edit.html.erb -->
+<div class="container mx-auto p-6 max-w-lg">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Edit Comment</h1>
+
+  <%= form_with(model: [ @comment.post, @comment ], local: true, url: post_comment_path(@comment.post, @comment), method: :patch, class: "space-y-4") do |form| %>
+    <div class="mb-4">
+      <%= form.label :body, class: "block text-gray-700 font-medium mb-2" %>
+      <%= form.text_area :body, class: "w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
+    <%= form.submit 'Update Comment', class: "bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  <% end %>
+
+  <%= link_to 'Back to Post', @comment.post, class: 'text-blue-600 hover:text-blue-800 font-semibold mt-6' %>
+</div>
