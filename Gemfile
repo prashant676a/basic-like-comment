@@ -54,3 +54,5 @@ end
 gem "devise", "~> 4.9"
 gem 'cssbundling-rails'
 
+
+gem "gravtastic", "~> 3.2"

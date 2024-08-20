@@ -22,6 +22,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
+  def create
+    super
+  end
+
   def update
     if current_user.update(account_update_params)
       set_flash_message :notice, :updated
@@ -36,6 +40,7 @@ private
 
 # Define the parameters you want to permit
 def configure_permitted_parameters
+  devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :profile_picture])
   devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :profile_picture])
 end
 

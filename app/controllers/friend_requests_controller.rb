@@ -40,7 +40,7 @@ class FriendRequestsController < ApplicationController
     @friendrequest = FriendRequest.find(params[:id])
     @friendrequest.destroy
 
-    redirect_to suggestions_friend_requests_path
+    redirect_to suggestions_friend_requests_path, notice: "request cancelled successfully."
   end
 
   private
