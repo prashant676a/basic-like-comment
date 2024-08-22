@@ -12,3 +12,29 @@
 
   <%= link_to 'Edit Profile', edit_user_registration_path, class: "text-indigo-600 hover:text-indigo-800" %>
 </div>
+
+
+<h1 class="text-3xl font-bold mb-4">Posts</h1>
+
+<!-- Posts Loop -->
+  <div class="space-y-8">
+    <% @posts.each do |post| %>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-blue-600 hover:text-blue-800">
+          <%= link_to post.title, post %>
+        </h2>
+        <span class="text-gray-600 text-sm">
+          by - <%= post.user.name %>
+        </span>
+        <p class="mt-4 text-gray-700">
+          <%= post.body %>
+        </p>
+        <p class="mt-2 text-sm text-gray-500">
+          <%= post.likes.count %> <%= post.likes.count == 1 ? 'Like' : 'Likes' %>
+        </p>
+        <p class="mt-2 text-sm text-gray-500">
+          <%= post.comments.count %> <%= post.comments.count == 1 ? 'Comment' : 'Comments' %>
+        </p>
+      </div>
+    <% end %>
+  </div>
