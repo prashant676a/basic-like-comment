@@ -5,26 +5,55 @@
 
   <!-- Posts Loop -->
   <div class="space-y-8">
-    <% @posts.each do |post| %>
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold text-blue-600 hover:text-blue-800">
-      <%= link_to post.title, post %>
-        </h2>
-        <span class="text-gray-600 text-sm">
-          by - <%= post.user.name %>
-        </span>
-        <p class="mt-4 text-gray-700">
-          <%= post.body %>
-        </p>
-        <p class="mt-2 text-sm text-gray-500">
-          <%= post.likes.count %> <%= post.likes.count == 1 ? 'Like' : 'Likes' %>
-        </p>
-        <p class="mt-2 text-sm text-gray-500">
-          <%= post.comments.count %> <%= post.comments.count == 1 ? 'Comment' : 'Comments' %>
-        </p>
+  <% @posts.each do |post| %>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-blue-600 hover:text-blue-800">
+        <%= link_to post.title, post %>
+      </h2>
+      <span class="text-gray-600 text-sm">
+        by - <%= post.user.name %>
+      </span>
+      <p class="mt-4 text-gray-700">
+        <%= post.body %>
+      </p>
+      
+      <!-- Flex container for likes, comments, and shares -->
+      <div class="flex mt-4 space-x-4 text-sm text-gray-500">
+        <p><%= post.likes.count %> <%= post.likes.count == 1 ? 'Like' : 'Likes' %></p>
+        <p><%= post.comments.count %> <%= post.comments.count == 1 ? 'Comment' : 'Comments' %></p>
+        <p><%= post.shares.count %> <%= post.shares.count == 1 ? 'Share' : 'Shares' %></p>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>
+
+
+  <% if user_signed_in? && @shared_posts.any? %>
+    <!-- Display Shared Posts -->
+    <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Shared posts </h3>
+
+    <div class="space-y-8">
+      <% @shared_posts.each do |post| %>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-semibold text-blue-600 hover:text-blue-800">
+            <%= link_to post.title, post %>
+          </h2>
+          <span class="text-gray-600 text-sm">
+            by - <%= post.user.name %>
+          </span>
+          <p class="mt-4 text-gray-700">
+            <%= post.body %>
+          </p>
+          <p class="mt-2 text-sm text-gray-500">
+            <%= post.likes.count %> <%= post.likes.count == 1 ? 'Like' : 'Likes' %>
+          </p>
+          <p class="mt-2 text-sm text-gray-500">
+            <%= post.comments.count %> <%= post.comments.count == 1 ? 'Comment' : 'Comments' %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <!-- New Post Button -->
   <% if user_signed_in? %>

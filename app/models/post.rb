@@ -3,6 +3,9 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy, as: :likeable
   belongs_to :user
 
+  has_many :shares
+  has_many :shared_by_users, through: :shares, source: :user
+
   has_many :comments, dependent: :destroy, as: :commentable
 
   def is_creator?(user)

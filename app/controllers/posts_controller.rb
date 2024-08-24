@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def index
     if user_signed_in?
       @posts = Post.visible_to(current_user)
+      @shared_posts = current_user.shared_posts
     else
       @posts = Post.all
     end

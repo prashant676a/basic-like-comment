@@ -4,5 +4,5 @@ class Like < ApplicationRecord
   belongs_to :user
 
   # Validations
-  validates :user_id, uniqueness: { scope: :likeable_id }
+  validates :user_id, uniqueness: { scope: [:likeable_id, :likeable_type] }
 end
