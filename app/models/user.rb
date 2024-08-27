@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  around_destroy :log_destroy_operation
+  around_create :log_creation
   
   include Gravtastic
   gravtastic
@@ -35,4 +37,18 @@ class User < ApplicationRecord
       .where.not(id: friend_requests_as_requestor.pluck(:receiver_id)) # Exclude users whom the current user has sent friend requests to
       .where.not(id: friend_requests_as_receiver.pluck(:requestor_id)) # Exclude users who have sent friend requests to the current user
   end
+
+  private
+  def log_destroy_operation
+    Rails.logger.info("About to destroy user with ID #{id}")
+    yield
+    Rails.logger.info("User with ID #{id} destroyed successfully")
+  end
+
+  def log_creation
+    Rails.logger.info("Creating user with email: #{email}")
+    yield
+    Rails.logger.info("User created with email: #{email}")
+  end
+
 end
