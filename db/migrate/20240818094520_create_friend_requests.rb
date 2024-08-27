@@ -1,4 +1,4 @@
-class CreateFriendRequests < ActiveRecord::Migration[7.2]
+class CreateFriendRequests < ActiveRecord::Migration[7.1]
   def change
     create_table :friend_requests do |t|
       t.integer :requestor_id
