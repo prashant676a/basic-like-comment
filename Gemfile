@@ -59,3 +59,5 @@ gem 'cssbundling-rails'
 
 
 gem "gravtastic", "~> 3.2"
+
+gem "slim-rails", "~> 3.7"
