@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy, as: :commentable
 
   def is_creator?(user)
-    self.user_id == user.id ? true : false
+    self.user_id == user&.id ? true : false # & for not logged in user
   end
 
   scope :visible_to, ->(user) { where(user: user.friends + [user]).order(updated_at: :desc) }
