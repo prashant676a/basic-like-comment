@@ -1,29 +1,20 @@
 doctype html
 html
   head
-    meta content: "text/html; charset=UTF-8" http-equiv="Content-Type" /
+    meta(content="text/html; charset=UTF-8" http-equiv="Content-Type")
     title= content_for(:title) || "Like Test"
-    meta content: "width=device-width,initial-scale=1", name: "viewport" /
-    meta content: "yes", name: "apple-mobile-web-app-capable" /
+    meta(content="width=device-width,initial-scale=1" name="viewport")
+    meta(content="yes" name="apple-mobile-web-app-capable")
     = csrf_meta_tags
     = csp_meta_tag
     = yield :head
-    link href: "/manifest.json", rel: "manifest" /
-    link href: "/icon.png", rel: "icon", type: "image/png" /
-    link href: "/icon.svg", rel: "icon", type: "image/svg+xml" /
-    link href: "/icon.png", rel: "apple-touch-icon" /
+    link(href="/manifest.json" rel="manifest")
+    link(href="/icon.png" rel="icon" type="image/png")
+    link(href="/icon.svg" rel="icon" type="image/svg+xml")
+    link(href="/icon.png" rel="apple-touch-icon")
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body.font-sans.text-gray-900.bg-gray-100
-    /!
-      | Flash Messages
-      | <div id="flash" class="fixed z-40 w-full max-w-md transform -translate-x-1/2 top-12 left-1/2"
-      | <haml_silent>   flash.each do |key, value|
-      | </haml_silent><haml_block>    <div class="flash <haml_loud> key </haml_loud> p-4 mb-4 rounded-lg bg-white text-red-800 shadow-lg <haml_loud> key </haml_loud>"
-      | <haml_loud> value </haml_loud
-      | </div
-      | </haml_block></div
-    /! Navigation Links
     .flex.items-center.justify-between.p-4.bg-white.shadow-md
       - if user_signed_in?
         /! Left-aligned links
