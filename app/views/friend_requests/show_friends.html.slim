@@ -1,0 +1,8 @@
+- if @friends.any?
+  h2.text-xl.font-bold.mb-4 My Friends
+  ul.list-disc.list-inside
+    - @friends.each do |friend|
+      li.mb-2
+        = friend.name
+- else
+  p.text-gray-500 You have no friends yet.

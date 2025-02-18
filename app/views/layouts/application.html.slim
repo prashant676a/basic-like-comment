@@ -1,0 +1,56 @@
+doctype html
+html
+  head
+    meta content: "text/html; charset=UTF-8" http-equiv="Content-Type" /
+    title= content_for(:title) || "Like Test"
+    meta content: "width=device-width,initial-scale=1", name: "viewport" /
+    meta content: "yes", name: "apple-mobile-web-app-capable" /
+    = csrf_meta_tags
+    = csp_meta_tag
+    = yield :head
+    link href: "/manifest.json", rel: "manifest" /
+    link href: "/icon.png", rel: "icon", type: "image/png" /
+    link href: "/icon.svg", rel: "icon", type: "image/svg+xml" /
+    link href: "/icon.png", rel: "apple-touch-icon" /
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  body.font-sans.text-gray-900.bg-gray-100
+    /!
+      | Flash Messages
+      | <div id="flash" class="fixed z-40 w-full max-w-md transform -translate-x-1/2 top-12 left-1/2"
+      | <haml_silent>   flash.each do |key, value|
+      | </haml_silent><haml_block>    <div class="flash <haml_loud> key </haml_loud> p-4 mb-4 rounded-lg bg-white text-red-800 shadow-lg <haml_loud> key </haml_loud>"
+      | <haml_loud> value </haml_loud
+      | </div
+      | </haml_block></div
+    /! Navigation Links
+    .flex.items-center.justify-between.p-4.bg-white.shadow-md
+      - if user_signed_in?
+        /! Left-aligned links
+        .flex.space-x-4
+          = link_to 'Home', root_path, class: "text-blue-600 hover:text-blue-800 font-semibold"
+        /! Centered links and profile image
+        .z-50.flex.items-center.space-x-6
+          = link_to show_friends_friend_requests_path, class: "text-blue-600 hover:text-blue-800 font-semibold" do
+            = render 'shared/svgs/friends_icon'
+          = link_to suggestions_friend_requests_path, class: "text-blue-600 hover:text-blue-800 font-semibold" do
+            = render 'shared/svgs/people_you_may_know_icon'
+          = link_to friend_requests_path, class: "text-blue-600 hover:text-blue-800 font-semibold" do
+            = render 'shared/svgs/friend_request'
+          = link_to profile_path, class: "text-blue-600 hover:text-blue-800 font-semibold" do
+            = render 'shared/svgs/profile_icon'
+          - if current_user.profile_picture.attached?
+            = image_tag current_user.profile_picture, class: "w-10 h-10 rounded-full border-2 border-blue-600"
+          - else
+            = image_tag current_user.gravatar_url, class: "w-10 h-10 rounded-full border-2 border-blue-600"
+        /! Right-aligned logout link
+        .flex.space-x-4
+          = link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-semibold"
+      - else
+        /! Links for non-signed-in users
+        .flex.space-x-4
+          = link_to 'Sign up', new_user_registration_path, class: "text-blue-600 hover:text-blue-800 font-semibold"
+          = link_to 'Login', new_user_session_path, class: "text-blue-600 hover:text-blue-800 font-semibold"
+    /! Main Content
+    .container.p-4.mx-auto
+      = yield

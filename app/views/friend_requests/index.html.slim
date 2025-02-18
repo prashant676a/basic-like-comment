@@ -1,0 +1,19 @@
+h1.text-2xl.font-bold.mb-4 Friend Requests
+h2.text-xl.font-semibold.mb-2 Requests Received
+- @request_received_from.each do |requestor|
+  .mb-4.p-4.border.rounded-lg.shadow-sm
+    p.text-lg.font-medium.mb-2
+      = requestor.name
+      | (#{requestor.email})
+    = form_with url: friend_request_path(find_friend_request(requestor).id), method: :patch, data: { turbo_method: :patch }, local: true do
+      = submit_tag 'Accept', class: 'bg-blue-500 text-white px-4 py-2 rounded mr-2'
+    = form_with url: friend_request_path(find_friend_request(requestor).id), method: :delete, data: { turbo_method: :delete }, local: true do
+      = submit_tag 'Cancel', class: 'bg-red-500 text-white px-4 py-2 rounded'
+h2.text-xl.font-semibold.mb-2 Requests Sent
+- @requests_sent_to.each do |receiver|
+  .mb-4.p-4.border.rounded-lg.shadow-sm
+    p.text-lg.font-medium.mb-2
+      = receiver.name
+      | (#{receiver.email})
+    = form_with url: friend_request_path(find_friend_request(receiver).id), method: :delete, data: { turbo_method: :delete }, local: true do
+      = submit_tag 'Cancel', class: 'bg-red-500 text-white px-4 py-2 rounded'

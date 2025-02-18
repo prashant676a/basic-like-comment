@@ -1,0 +1,16 @@
+.container.mx-auto.p-6.max-w-lg
+  /! Page Title
+  h1.text-3xl.font-bold.text-gray-800.mb-6 Edit Post
+  /! Edit Post Form
+  = form_with(model: @post, local: true, class: "space-y-4") do |form|
+    .mb-4
+      = form.label :title, class: "block text-gray-700 font-medium mb-2"
+      = form.text_field :title, class: "w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    .mb-4
+      = form.label :body, class: "block text-gray-700 font-medium mb-2"
+      = form.text_area :body, class: "w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    div
+      = form.submit 'Edit Post', class: "bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  /! Back Link
+  .mt-6
+    = link_to 'Back', posts_path, class: 'text-blue-600 hover:text-blue-800 font-semibold'

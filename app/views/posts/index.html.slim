@@ -1,0 +1,46 @@
+.container.mx-auto.p-6
+  /! Page Title
+  h1.text-4xl.font-bold.text-center.text-gray-800.mb-8 Posts
+  /! Posts Loop
+  .space-y-8
+    - @posts.each do |post|
+      .bg-white.p-6.rounded-lg.shadow-md
+        h2.text-2xl.font-semibold.text-blue-600.hover:text-blue-800
+          = link_to post.title, post
+        span.text-gray-600.text-sm
+          | by - #{post.user.name}
+        p.mt-4.text-gray-700
+          = post.body
+        /! Flex container for likes, comments, and shares
+        .flex.mt-4.space-x-4.text-sm.text-gray-500
+          p
+            = post.likes.count
+            = post.likes.count == 1 ? 'Like' : 'Likes'
+          p
+            = post.comments.count
+            = post.comments.count == 1 ? 'Comment' : 'Comments'
+          p
+            = post.shares.count
+            = post.shares.count == 1 ? 'Share' : 'Shares'
+  - if user_signed_in? && @shared_posts.any?
+    /! Display Shared Posts
+    h3.text-2xl.font-bold.text-center.text-gray-800.mb-8 Shared posts
+    .space-y-8
+      - @shared_posts.each do |post|
+        .bg-white.p-6.rounded-lg.shadow-md
+          h2.text-2xl.font-semibold.text-blue-600.hover:text-blue-800
+            = link_to post.title, post
+          span.text-gray-600.text-sm
+            | by - #{post.user.name}
+          p.mt-4.text-gray-700
+            = post.body
+          p.mt-2.text-sm.text-gray-500
+            = post.likes.count
+            = post.likes.count == 1 ? 'Like' : 'Likes'
+          p.mt-2.text-sm.text-gray-500
+            = post.comments.count
+            = post.comments.count == 1 ? 'Comment' : 'Comments'
+  /! New Post Button
+  - if user_signed_in?
+    .mt-8.text-center
+      = link_to 'New Post', new_post_path, class: 'inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700'
